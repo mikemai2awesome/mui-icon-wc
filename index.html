@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUI Icon Web Component by Mike Mai</title>
+  <script src="mui-icon.js" defer></script>
+  <style>
+    @layer config, resets, components, utilities;
+    
+    @layer components {
+      body {
+        margin-block: 5vmax;
+        margin-inline: 5vmin;
+
+        > div {
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: row-reverse;
+          align-items: flex-start;
+          gap: 5vmin;
+          row-gap: 5vmax;
+          max-inline-size: 140ch;
+          margin-inline: auto;
+        }
+      }
+      
+      header, section, search {
+        display: grid;
+        gap: 0.75cap;
+      }
+      
+      header {
+        display: grid;
+        gap: 0.5cap;
+        flex: 1 1 25ch;
+        position: sticky;
+        top: 2.5vmin;
+        padding: 2.5vmin;
+        font-size: 0.8rem;
+        background-color: color-mix(in oklch, canvas 75%, transparent);
+        border: 2px solid color-mix(in oklch, canvastext 15%, transparent);
+        border-radius: 3ex;
+        border-end-start-radius: 0;
+        backdrop-filter: blur(1ex);
+
+        * {
+          font: inherit;
+        }
+
+        h1 {
+          font-variant: small-caps;
+          text-transform: uppercase;
+          letter-spacing: 0.1ex;
+        }
+      }
+      
+      main {
+        display: grid;
+        gap: 4cap;
+        flex: 6.18 1 35ch;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: inherit;
+        line-height: 1.15;
+
+        &:not(:first-child) {
+          margin-block-start: 1cap;
+        }
+      }
+
+      p {
+        max-inline-size: 65ch;
+      }
+
+      pre code {
+        display: block;
+        padding: 2ex;
+        border: 0.5ex solid color-mix(in oklch, linktext 10%, transparent);
+        border-radius: 1ex;
+      }
+
+      code {
+        font-size: 0.85em;
+        color: linktext;
+      }
+
+      input, button {
+        padding-block: 1ex;
+        padding-inline: 2ch;
+        line-height: 1.2;
+        border: 0.25ex solid linktext;
+        border-radius: 1ex;
+      }
+
+      button {
+        display: inline-grid;
+        place-items: center;
+        text-align: center;
+        color: canvas;
+        background-color: linktext;
+        transition: background-color 0.2s ease-in-out;
+        &:has(mui-icon:not(:only-child)) {
+          grid-template-columns: auto 1fr auto;
+          gap: 0.5ch;
+          align-items: start;
+          padding-block: 1.1ex 0.9ex;
+        }
+
+        @media (any-hover: hover) {
+          &:hover {
+            background-color: color-mix(in oklch, linktext 75%, transparent);
+          }
+        }
+      }
+
+      table {
+        inline-size: 100%;
+        border-spacing: 0.5ch;
+        background-color: color-mix(in oklch, canvastext 4%, transparent);
+        border-radius: 1ex;
+
+        th, td {
+          text-align: start;
+          padding-block: 0.5ex;
+          padding-inline: 1ch;
+        }
+
+        th {
+          background-color: canvas;
+          border-radius: 1ex;
+
+          &:last-child {
+            min-inline-size: 25ch;
+          }
+
+          &:not(:last-child) {
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .dynamic-icon-demo {
+        display: grid;
+        place-items: center;
+        gap: 1cap;
+        padding: 5vmin;
+        background-color: color-mix(in oklch, linktext 3%, transparent);
+        border-radius: 1ex;
+
+        p {
+          margin-block-start: 1cap;
+          font-size: 0.8em;
+          font-style: italic;
+        }
+      }
+
+      .icons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
+        list-style: none;
+        padding-block: 2.5vmin;
+        color: linktext;
+        background-color: color-mix(in oklch, linktext 3%, transparent);
+        border-radius: 1ex;
+      }
+
+      .icon-demo {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        padding: 1ex;
+
+        & > span {
+          margin-block-start: 0.5ex;
+          font-size: 0.8em;
+          line-height: 1.2;
+          color: canvastext;
+        }
+      }
+
+      .search-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5ch;
+        max-inline-size: 65ch;
+
+        input {
+          flex: 4 1 20ch;
+          inline-size: 100%;
+        }
+
+        button {
+          flex: 1 1 max-content;
+        }
+      }
+    }
+    
+    @layer config {
+      :root {
+        color-scheme: dark light;
+        font-family: "IM Fell English", "Georgia", serif;
+        font-size: clamp(100%, 100% * 0.9 + 0.5dvi, 200%);
+        line-height: 1.4;
+      }
+    }
+
+    @layer resets {
+      *,
+      *::before,
+      *::after {
+        font-feature-settings: "kern";
+        font-kerning: normal;
+        box-sizing: border-box;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        text-wrap: balance;
+
+        &:focus-visible {
+          outline: 2px dashed linktext;
+          outline-offset: 2px;
+        }
+      }
+
+      input:is([type="checkbox"], [type="radio"]),
+      select,
+      label,
+      button {
+        cursor: pointer;
+      }
+
+      input,
+      select,
+      textarea,
+      button {
+        font: inherit;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        :root {
+          scroll-behavior: smooth;
+        }
+      }
+    }
+
+    @layer utilities {
+      .u-visually-hidden:not(:focus):not(:active) {
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
+      .u-horiontal-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      .u-flex-align-center {
+        align-items: center;
+      }
+    }
+  </style>
+  <meta name="description" content="A lightweight, accessible web component for dynamically loading Material UI icons. Easy to implement with vanilla JavaScript, responsive sizing, and accessibility features.">
+  <link rel="canonical" href="https://mikemai.net/mui-icon/">
+
+  <!-- Open Graph -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@mikemai2awesome">
+  <meta name="twitter:creator" content="@mikemai2awesome">
+
+  <meta property="og:url" content="https://mikemai.net/mui-icon/">
+  <meta property="og:title" content="MUI Icon Web Component by Mike Mai">
+  <meta property="og:description" content="A lightweight, accessible web component for dynamically loading Material UI icons. Easy to implement with vanilla JavaScript, responsive sizing, and accessibility features.">
+  <meta property="og:locale" content="en_US">
+
+  <meta property="og:image" content="https://mikemai.net/mui-icon/img/og-image.jpg">
+  <meta property="og:image:alt" content="MCSS: A lightweight, accessible web component for dynamically loading Material UI icons. Easy to implement with vanilla JavaScript, responsive sizing, and accessibility features.">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="672">
+
+  <meta property="og:site_name" content="Mike Mai Network">
+
+  <link rel="me" href="https://github.com/mikemai2awesome">
+  <link rel="me" href="https://twitter.com/mikemai2awesome">
+  <link rel="me" href="https://mastodon.social/@mikemai2awesome">
+
+  <!-- Favicons -->  
+  <link rel="icon" href="https://mikemai.net/favicon.ico" sizes="any">
+  <link rel="icon" href="https://mikemai.net/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://mikemai.net/apple-touch-icon.png">
+  <link rel="manifest" href="https://mikemai.net/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#DC143C">
+  <meta name="theme-color" content="#DC143C">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div>
+    <header>
+      <h1>MUI-Icon Web Component</h1>
+      <p>A lightweight, accessible web component that dynamically loads MUI icons from the official package.</p>
+      <p><a href="/">Download on GitHub</a> <mui-icon name="arrow-forward"></mui-icon></p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Getting Started</h2>
+        <pre contenteditable><code>&lt;!-- Include the JavaScript file --&gt;
+&lt;script src="path/to/mui-icon.js"&gt;&lt;/script&gt;
+
+&lt;!-- Then, include the component in your HTML --&gt;
+&lt;mui-icon name="shopping-cart"&gt;&lt;/mui-icon&gt;</code></pre>
+        <div class="icons-grid u-flex-align-center">
+          <div class="icon-demo">
+            <mui-icon name="shopping-cart" size="xlarge" label="Shopping Cart"></mui-icon>
+          </div>
+        </div>
+      </section>
+    
+      <section>
+        <h2 id="component-props">Component Props</h2>
+        <p>The <code>&lt;mui-icon&gt;</code> web component accepts the following props (i.e. attributes):</p>
+        
+        <div class="u-horiontal-scroll" role="region" aria-labelledby="component-props" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>name</code></td>
+              <td>string</td>
+              <td><em>(required)</em></td>
+              <td>Specifies which MUI icon to display in lowercase and dash-separated format (e.g. <code>shopping-cart</code>, <code>arrow-back</code>).</td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td>string</td>
+              <td>null</td>
+              <td>Controls the icon size. Values: <code>small</code> (16px/1rem), <code>medium</code> (24px/1.5rem), <code>large</code> (32px/2rem), <code>xlarge</code> (48px/3rem). When omitted, inherits the font size of its parent.</td>
+            </tr>
+            <tr>
+              <td><code>label</code></td>
+              <td>string</td>
+              <td>null</td>
+              <td>When provided, adds accessibility information for screen readers with <code>aria-label</code>. When omitted, the icon is treated as decorative with <code>aria-hidden="true"</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section> 
+
+      <section>
+        <h2>CSS Custom Properties</h2>
+        <p>The component also accepts the following CSS custom properties for custom styling:</p>
+        <div class="u-horiontal-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th width="30%">Property</th>
+                <th width="70%">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--icon-size-small</code></td>
+                <td>Size for <code>small</code> icons.</td>
+              </tr>
+              <tr>
+                <td><code>--icon-size-medium</code></td>
+                <td>Size for <code>medium</code> icons.</td>
+              </tr>
+              <tr>
+                <td><code>--icon-size-large</code></td>
+                <td>Size for <code>large</code> icons.</td>
+              </tr>
+              <tr>
+                <td><code>--icon-size-xlarge</code></td>
+                <td>Size for <code>xlarge</code> icons.</td>
+              </tr>
+              <tr>
+                <td><code>--icon-color</code></td>
+                <td>Color for the icon.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>Sizes</h2>
+        <ul class="icons-grid u-flex-align-center" role="list">
+          <li class="icon-demo">
+            <mui-icon name="save"></mui-icon>
+            <span><q>null</q><br>(inherits font size)</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="save" size="small"></mui-icon>
+            <span>small<br>(16px)</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="save" size="medium"></mui-icon>
+            <span>medium<br>(24px)</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="save" size="large"></mui-icon>
+            <span>large<br>(32px)</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="save" size="xlarge"></mui-icon>
+            <span>xlarge<br>(48px)</span>
+          </li>
+        </ul>
+        <pre contenteditable><code>&lt;mui-icon size="xlarge" name="save"&gt;&lt;/mui-icon&gt;</code></pre>
+      </section>
+      
+      <section>
+        <h2>Accessibility</h2>
+        <p>Icons can be made meaningful for assistive technologies with the <code>label</code> prop:</p>
+        <ul class="icons-grid" role="list">
+          <li class="icon-demo">
+            <button>
+              <mui-icon name="save" label="Save"></mui-icon>
+            </button>
+          </li>
+          <li class="icon-demo">
+            <button>
+              <mui-icon name="save"></mui-icon>
+              <span>Save</span>
+            </button>
+          </li>
+        </ul>
+        <pre contenteditable><code>&lt;!-- Meaningful Icon --&gt;
+&lt;button&gt;
+  &lt;mui-icon label="Save" name="save"&gt;&lt;/mui-icon&gt;
+&lt;/button&gt;
+
+&lt;!-- Decorative Icon --&gt;
+&lt;button&gt;
+  &lt;mui-icon name="save"&gt;&lt;/mui-icon&gt;
+  &lt;span&gt;Save&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        <ol>
+          <li>The icon is given explicit <code>label</code> prop for assistive technologies because there is no visible text label.</li>
+          <li>The icon omits the <code>label</code> prop because there is visible text label.</li>
+        </ol>
+      </section>
+      
+      <section>
+        <h2>50 Most Popular Icons</h2>
+        <p>A collection of the most commonly used MUI icons:</p>
+        <ul class="icons-grid" role="list">
+          <li class="icon-demo">
+            <mui-icon name="home" size="medium"></mui-icon>
+            <span>home</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="menu" size="medium"></mui-icon>
+            <span>menu</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="close" size="medium"></mui-icon>
+            <span>close</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="search" size="medium"></mui-icon>
+            <span>search</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="settings" size="medium"></mui-icon>
+            <span>settings</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="account-circle" size="medium"></mui-icon>
+            <span>account-circle</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="person" size="medium"></mui-icon>
+            <span>person</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="email" size="medium"></mui-icon>
+            <span>email</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="phone" size="medium"></mui-icon>
+            <span>phone</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="message" size="medium"></mui-icon>
+            <span>message</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="notifications" size="medium"></mui-icon>
+            <span>notifications</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="favorite" size="medium"></mui-icon>
+            <span>favorite</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="star" size="medium"></mui-icon>
+            <span>star</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="shopping-cart" size="medium"></mui-icon>
+            <span>shopping-cart</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="add" size="medium"></mui-icon>
+            <span>add</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="remove" size="medium"></mui-icon>
+            <span>remove</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="delete" size="medium"></mui-icon>
+            <span>delete</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="edit" size="medium"></mui-icon>
+            <span>edit</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="save" size="medium"></mui-icon>
+            <span>save</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="share" size="medium"></mui-icon>
+            <span>share</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="download" size="medium"></mui-icon>
+            <span>download</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="upload" size="medium"></mui-icon>
+            <span>upload</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="check" size="medium"></mui-icon>
+            <span>check</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="clear" size="medium"></mui-icon>
+            <span>clear</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="arrow-back" size="medium"></mui-icon>
+            <span>arrow-back</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="arrow-forward" size="medium"></mui-icon>
+            <span>arrow-forward</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="expand-more" size="medium"></mui-icon>
+            <span>expand-more</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="expand-less" size="medium"></mui-icon>
+            <span>expand-less</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="more-vert" size="medium"></mui-icon>
+            <span>more-vert</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="more-horiz" size="medium"></mui-icon>
+            <span>more-horiz</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="refresh" size="medium"></mui-icon>
+            <span>refresh</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="location-on" size="medium"></mui-icon>
+            <span>location-on</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="calendar-today" size="medium"></mui-icon>
+            <span>calendar-today</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="event" size="medium"></mui-icon>
+            <span>event</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="access-time" size="medium"></mui-icon>
+            <span>access-time</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="alarm" size="medium"></mui-icon>
+            <span>alarm</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="visibility" size="medium"></mui-icon>
+            <span>visibility</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="visibility-off" size="medium"></mui-icon>
+            <span>visibility-off</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="lock" size="medium"></mui-icon>
+            <span>lock</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="lock-open" size="medium"></mui-icon>
+            <span>lock-open</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="info" size="medium"></mui-icon>
+            <span>info</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="warning" size="medium"></mui-icon>
+            <span>warning</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="error" size="medium"></mui-icon>
+            <span>error</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="help" size="medium"></mui-icon>
+            <span>help</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="file-copy" size="medium"></mui-icon>
+            <span>file-copy</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="folder" size="medium"></mui-icon>
+            <span>folder</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="attach-file" size="medium"></mui-icon>
+            <span>attach-file</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="link" size="medium"></mui-icon>
+            <span>link</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="print" size="medium"></mui-icon>
+            <span>print</span>
+          </li>
+          <li class="icon-demo">
+            <mui-icon name="send" size="medium"></mui-icon>
+            <span>send</span>
+          </li>
+        </ul>
+        <h3>Search More Icons</h3>
+        <p id="search-hint">Enter any MUI icon name to load it dynamically. Use lowercase and dash-separated format (e.g. <code>shopping-cart</code> instead of <code>ShoppingCart</code>). For a full list of icons, see the <a href="https://mui.com/material-ui/material-icons">MUI Icons documentation</a>.</p>
+        
+        <search>
+          <div id="dynamic-result" class="dynamic-icon-demo" style="display: none;">
+            <mui-icon id="dynamic-icon" name="search" size="xlarge"></mui-icon>
+            <div class="icon-name" id="icon-name">search</div>
+            <p>This icon was loaded dynamically from the <a href="https://www.npmjs.com/package/@mui/icons-material">MUI icons package</a>.</p>
+          </div>
+          <p>
+            <em aria-live="polite" id="status" class="u-visually-hidden"></em>
+          </p>
+          <div class="search-container">
+            <input type="search" id="icon-search" aria-labelledby="search-hint">
+            <button id="load-icon">Show me the icon</button>
+          </div>
+        </search>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Dynamic icon loading functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const iconSearch = document.getElementById('icon-search');
+      const loadButton = document.getElementById('load-icon');
+      const dynamicIcon = document.getElementById('dynamic-icon');
+      const iconName = document.getElementById('icon-name');
+      const status = document.getElementById('status');
+      const resultContainer = document.getElementById('dynamic-result');
+      
+      loadButton.addEventListener('click', () => {
+        const name = iconSearch.value.trim();
+        
+        if (!name) {
+          status.textContent = 'Please enter an icon name';
+          status.classList.remove('u-visually-hidden');
+          status.style.display = 'block';
+          resultContainer.style.display = 'none';
+          return;
+        }
+        
+        status.textContent = `Loading...`;
+        status.classList.remove('u-visually-hidden');
+        status.style.display = 'block';
+        resultContainer.style.display = 'none';
+        
+        // Create a test icon element to check if the icon is valid
+        const testIcon = document.createElement('mui-icon');
+        testIcon.style.position = 'absolute';
+        testIcon.style.opacity = '0';
+        testIcon.style.pointerEvents = 'none';
+        testIcon.setAttribute('name', name);
+        document.body.appendChild(testIcon);
+        
+        // Check after a delay
+        setTimeout(() => {
+          // Directly inspect the shadow DOM
+          const shadowRoot = testIcon.shadowRoot;
+          const hasIcon = shadowRoot && 
+                          shadowRoot.querySelector('svg') && 
+                          shadowRoot.querySelector('svg').innerHTML.length > 20;
+          
+          // Remove the test element
+          document.body.removeChild(testIcon);
+          
+          if (hasIcon) {
+            // Icon exists, update the visible one
+            dynamicIcon.setAttribute('name', name);
+            dynamicIcon.setAttribute('size', 'xlarge');
+            iconName.textContent = name;
+            status.textContent = `Successfully loaded icon: ${name}`;
+            status.classList.add('u-visually-hidden');
+            resultContainer.style.display = 'block';
+          } else {
+            status.textContent = `Could not find icon: ${name}. Please try another name.`;
+            status.classList.remove('u-visually-hidden');
+            status.style.display = 'block';
+            resultContainer.style.display = 'none';
+          }
+          
+          // Scroll to results or status message
+          const scrollTarget = hasIcon ? resultContainer : status;
+          
+          scrollTarget.scrollIntoView({
+            block: 'center'
+          });
+        }, 1500); // Give enough time for the component to attempt loading
+      });
+      
+      // Allow pressing Enter to load the icon
+      iconSearch.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          loadButton.click();
+        }
+      });
+
+      // Also handle the initial empty state
+      iconSearch.addEventListener('focus', () => {
+        if (!iconSearch.value.trim()) {
+          status.classList.remove('u-visually-hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html> 

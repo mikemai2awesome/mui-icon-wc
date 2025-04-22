@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUI Icon Web Component Tests</title>
+  <script src="mui-icon.js" defer></script>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 50rem;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    
+    .test-case {
+      margin-block-end: 2rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+    }
+    
+    .test-pass {
+      color: green;
+      font-weight: bold;
+    }
+    
+    .test-fail {
+      color: red;
+      font-weight: bold;
+    }
+    
+    .test-results {
+      margin-block-start: 1rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+      padding: 1rem;
+      background-color: #f5f5f5;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>MUI Icon Web Component Tests</h1>
+  
+  <div class="test-case">
+    <h2>Test: Component Initialization</h2>
+    <p>The component should properly initialize with default attributes.</p>
+    <div id="test1">
+      <mui-icon name="add"></mui-icon>
+    </div>
+    <div class="test-results" id="test1-results"></div>
+  </div>
+  
+  <div class="test-case">
+    <h2>Test: Size Variants</h2>
+    <p>The component should apply the correct size class based on the size attribute.</p>
+    <div id="test2">
+      <mui-icon name="add" size="small"></mui-icon>
+      <mui-icon name="add" size="medium"></mui-icon>
+      <mui-icon name="add" size="large"></mui-icon>
+      <mui-icon name="add" size="xlarge"></mui-icon>
+    </div>
+    <div class="test-results" id="test2-results"></div>
+  </div>
+  
+  <div class="test-case">
+    <h2>Test: Accessibility</h2>
+    <p>The component should have appropriate ARIA attributes based on the presence of a label.</p>
+    <div id="test3">
+      <mui-icon name="accessibility"></mui-icon>
+      <mui-icon name="accessibility" label="Accessibility icon"></mui-icon>
+    </div>
+    <div class="test-results" id="test3-results"></div>
+  </div>
+  
+  <div class="test-case">
+    <h2>Test: Dynamic Attribute Changes</h2>
+    <p>The component should update when attributes are changed dynamically.</p>
+    <div id="test4">
+      <mui-icon id="dynamic-icon" name="add"></mui-icon>
+    </div>
+    <button id="change-icon">Change Icon</button>
+    <button id="change-size">Change Size</button>
+    <button id="add-label">Add Label</button>
+    <div class="test-results" id="test4-results"></div>
+  </div>
+  
+  <div class="test-case">
+    <h2>Test: Invalid Icon Name</h2>
+    <p>The component should handle invalid icon names gracefully.</p>
+    <div id="test5">
+      <mui-icon name="non-existent-icon"></mui-icon>
+    </div>
+    <div class="test-results" id="test5-results"></div>
+  </div>
+  
+  <script>
+    // Wait for the component to be defined
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(runTests, 100);
+    });
+    
+    function runTests() {
+      testComponentInitialization();
+      testSizeVariants();
+      testAccessibility();
+      testDynamicAttributeChanges();
+      testInvalidIconName();
+    }
+    
+    function testComponentInitialization() {
+      const results = document.getElementById('test1-results');
+      const component = document.querySelector('#test1 mui-icon');
+      
+      if (!component) {
+        results.textContent = 'FAIL: Component not found';
+        results.classList.add('test-fail');
+        return;
+      }
+      
+      const shadowRoot = component.shadowRoot;
+      if (!shadowRoot) {
+        results.textContent = 'FAIL: Shadow DOM not created';
+        results.classList.add('test-fail');
+        return;
+      }
+      
+      const svg = shadowRoot.querySelector('svg');
+      if (!svg) {
+        results.textContent = 'FAIL: SVG not rendered';
+        results.classList.add('test-fail');
+        return;
+      }
+      
+      results.textContent = 'PASS: Component initialized correctly';
+      results.classList.add('test-pass');
+    }
+    
+    function testSizeVariants() {
+      const results = document.getElementById('test2-results');
+      const components = document.querySelectorAll('#test2 mui-icon');
+      let output = '';
+      let allPassed = true;
+      
+      const expectedSizes = ['small', 'medium', 'large', 'xlarge'];
+      
+      components.forEach((component, index) => {
+        const size = component.getAttribute('size');
+        const isExpectedSize = size === expectedSizes[index];
+        
+        if (!isExpectedSize) {
+          output += `FAIL: Component ${index} has size "${size}" instead of "${expectedSizes[index]}"\n`;
+          allPassed = false;
+        }
+      });
+      
+      if (allPassed) {
+        output = 'PASS: All size variants are correct';
+        results.classList.add('test-pass');
+      } else {
+        results.classList.add('test-fail');
+      }
+      
+      results.textContent = output;
+    }
+    
+    function testAccessibility() {
+      const results = document.getElementById('test3-results');
+      const components = document.querySelectorAll('#test3 mui-icon');
+      let output = '';
+      let allPassed = true;
+      
+      // The first component should have aria-hidden="true"
+      const decorativeComponent = components[0];
+      const decorativeWrapper = decorativeComponent.shadowRoot.querySelector('.icon-wrapper');
+      
+      if (!decorativeWrapper || decorativeWrapper.getAttribute('aria-hidden') !== 'true') {
+        output += 'FAIL: Decorative icon does not have aria-hidden="true"\n';
+        allPassed = false;
+      }
+      
+      // The second component should have aria-label
+      const labeledComponent = components[1];
+      const labeledWrapper = labeledComponent.shadowRoot.querySelector('.icon-wrapper');
+      const expectedLabel = labeledComponent.getAttribute('label');
+      
+      if (!labeledWrapper || labeledWrapper.getAttribute('aria-label') !== expectedLabel) {
+        output += `FAIL: Labeled icon does not have aria-label="${expectedLabel}"\n`;
+        allPassed = false;
+      }
+      
+      if (allPassed) {
+        output = 'PASS: Accessibility attributes are correct';
+        results.classList.add('test-pass');
+      } else {
+        results.classList.add('test-fail');
+      }
+      
+      results.textContent = output;
+    }
+    
+    function testDynamicAttributeChanges() {
+      const results = document.getElementById('test4-results');
+      const component = document.getElementById('dynamic-icon');
+      let output = '';
+      
+      document.getElementById('change-icon').addEventListener('click', () => {
+        component.setAttribute('name', 'favorite');
+        
+        setTimeout(() => {
+          const svg = component.shadowRoot.querySelector('svg');
+          const pathData = svg.querySelector('path').getAttribute('d');
+          const isFavoriteIcon = pathData.includes('21.35');
+          
+          if (isFavoriteIcon) {
+            output += 'PASS: Icon changed to favorite\n';
+          } else {
+            output += 'FAIL: Icon did not change to favorite\n';
+          }
+          
+          results.textContent = output;
+        }, 50);
+      });
+      
+      document.getElementById('change-size').addEventListener('click', () => {
+        component.setAttribute('size', 'large');
+        
+        setTimeout(() => {
+          const hasLargeSize = component.getAttribute('size') === 'large';
+          
+          if (hasLargeSize) {
+            output += 'PASS: Size changed to large\n';
+          } else {
+            output += 'FAIL: Size did not change to large\n';
+          }
+          
+          results.textContent = output;
+        }, 50);
+      });
+      
+      document.getElementById('add-label').addEventListener('click', () => {
+        component.setAttribute('label', 'Test label');
+        
+        setTimeout(() => {
+          const wrapper = component.shadowRoot.querySelector('.icon-wrapper');
+          const hasLabel = wrapper.getAttribute('aria-label') === 'Test label';
+          
+          if (hasLabel) {
+            output += 'PASS: Label was added correctly\n';
+          } else {
+            output += 'FAIL: Label was not added correctly\n';
+          }
+          
+          results.textContent = output;
+        }, 50);
+      });
+      
+      output = 'Click the buttons to run dynamic tests';
+      results.textContent = output;
+    }
+    
+    function testInvalidIconName() {
+      const results = document.getElementById('test5-results');
+      const component = document.querySelector('#test5 mui-icon');
+      
+      if (!component) {
+        results.textContent = 'FAIL: Component not found';
+        results.classList.add('test-fail');
+        return;
+      }
+      
+      const shadowRoot = component.shadowRoot;
+      if (!shadowRoot) {
+        results.textContent = 'FAIL: Shadow DOM not created';
+        results.classList.add('test-fail');
+        return;
+      }
+      
+      // The component should not render an SVG for an invalid name
+      const svg = shadowRoot.querySelector('svg');
+      if (svg) {
+        results.textContent = 'FAIL: SVG was rendered for invalid icon name';
+        results.classList.add('test-fail');
+        return;
+      }
+      
+      results.textContent = 'PASS: Component handled invalid icon name correctly';
+      results.classList.add('test-pass');
+    }
+  </script>
+</body>
+</html> 

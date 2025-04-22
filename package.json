@@ -1,0 +1,32 @@
+{
+  "name": "web-component-icon",
+  "version": "1.0.0",
+  "description": "A lightweight, accessible web component that displays Material UI icons as SVGs",
+  "main": "dist/mui-icon.js",
+  "scripts": {
+    "test": "echo \"Open test.html in a browser to run tests\" && exit 1",
+    "start": "npx serve .",
+    "build": "mkdir -p dist && cp mui-icon.js dist/",
+    "minify": "npx terser dist/mui-icon.js -o dist/mui-icon.min.js --compress --mangle",
+    "prepare": "npm run build && npm run minify"
+  },
+  "keywords": [
+    "web-components",
+    "mui",
+    "icons",
+    "svg",
+    "accessibility",
+    "wcag"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.0",
+    "terser": "^5.16.8"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
+} 
