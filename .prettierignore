@@ -1,0 +1,11 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# Build output
+dist
+
+# Other
+.DS_Store
+**/coverage
+*.log 
