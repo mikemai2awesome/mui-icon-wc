@@ -86,8 +86,8 @@ function App() {
 import 'web-component-icon';
 
 export default {
-  name: 'App'
-}
+  name: 'App',
+};
 </script>
 ```
 
@@ -106,7 +106,7 @@ import 'web-component-icon';
   declarations: [AppComponent],
   imports: [BrowserModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // This allows using web components in templates
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -115,4 +115,4 @@ Then in your component:
 
 ```html
 <mui-icon name="add" size="large"></mui-icon>
-``` 
+```

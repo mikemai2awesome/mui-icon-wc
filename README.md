@@ -62,6 +62,7 @@ For a complete list of all available icons, visit the [Material UI Icons documen
 ### `size` (optional)
 
 Controls the size of the icon:
+
 - `small`: 16px (1rem)
 - `medium`: 24px (1.5rem)
 - `large`: 32px (2rem)
@@ -92,6 +93,7 @@ mui-icon {
 The component dynamically fetches icon SVG paths from the MUI icons package through unpkg.com CDN. It converts the icon name from kebab-case to PascalCase and adds the "Icon" suffix to match MUI's naming convention.
 
 For example:
+
 - `add` → `AddIcon`
 - `arrow-back` → `ArrowBackIcon`
 - `shopping-cart` → `ShoppingCartIcon`
@@ -101,6 +103,7 @@ The component includes a small set of built-in common icons to reduce network re
 ### Advanced Path Resolution
 
 For more reliability, the component tries multiple potential paths for each icon:
+
 - Standard ESM path
 - Path without "Icon" suffix
 - Lib path
@@ -122,6 +125,7 @@ This ensures maximum compatibility with the MUI icons library and helps resolve 
 ## Browser Support
 
 This component works in all modern browsers that support Custom Elements v1 (Web Components):
+
 - Chrome/Edge
 - Firefox
 - Safari
@@ -144,4 +148,4 @@ import './path/to/mui-icon.js';
 
 ## Caching and Performance
 
-The component caches icons after they've been loaded to improve performance and reduce network requests. If you use the same icon multiple times on your page, it will only be fetched once. 
+The component caches icons after they've been loaded to improve performance and reduce network requests. If you use the same icon multiple times on your page, it will only be fetched once.

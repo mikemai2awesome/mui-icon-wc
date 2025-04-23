@@ -1,32 +1,32 @@
 <!doctype html>
-<html lang="en-us">
+<html lang="zh-hans">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MUI Icon Web Component by Mike Mai</title>
-    <script src="mui-icon.js" defer></script>
-    <link rel="stylesheet" href="main.css" />
+    <title>Mike Mai 开发的 MUI-Icon 图标网页组件</title>
+    <script src="../mui-icon.js" defer></script>
+    <link rel="stylesheet" href="../main.css" />
     <meta
       name="description"
-      content="A lightweight, accessible web component for dynamically loading Material UI icons. Easy to implement with vanilla JavaScript, responsive sizing, and accessibility features."
+      content="一款轻量级且具备无障碍访问特性的网页组件，用于动态加载 Material UI 图标。使用原生 JavaScript 即可轻松实现，支持响应式尺寸调整，并具备无障碍访问功能。"
     />
-    <link rel="canonical" href="https://mikemai.net/mui-icon/" />
+    <link rel="canonical" href="https://mikemai.net/mui-icon/cn/" />
 
     <!-- Open Graph -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@mikemai2awesome" />
     <meta name="twitter:creator" content="@mikemai2awesome" />
 
-    <meta property="og:url" content="https://mikemai.net/mui-icon/" />
-    <meta property="og:title" content="MUI Icon Web Component by Mike Mai" />
+    <meta property="og:url" content="https://mikemai.net/mui-icon/cn/" />
+    <meta property="og:title" content="Mike Mai 开发的 MUI-Icon 图标网页组件" />
     <meta
       property="og:description"
-      content="A lightweight, accessible web component for dynamically loading Material UI icons. Easy to implement with vanilla JavaScript, responsive sizing, and accessibility features."
+      content="一款轻量级且具备无障碍访问特性的网页组件，用于动态加载 Material UI 图标。使用原生 JavaScript 即可轻松实现，支持响应式尺寸调整，并具备无障碍访问功能。"
     />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="zh_CN" />
 
     <meta property="og:image" content="https://mikemai.net/mui-icon/img/og-image.jpg" />
-    <meta property="og:image:alt" content="MUI Icon" />
+    <meta property="og:image:alt" content="MUI-Icon" />
     <meta property="og:image:width" content="1280" />
     <meta property="og:image:height" content="672" />
 
@@ -55,14 +55,11 @@
   <body>
     <div>
       <header>
-        <h1>MUI-Icon Web Component</h1>
-        <p>
-          A lightweight, accessible web component that dynamically loads MUI Icons from the official
-          package.
-        </p>
+        <h1>MUI-Icon 网页组件</h1>
+        <p>一个轻量级且易用的网页组件，可从 MUI Icons 的官方包中动态加载图标。</p>
         <p>
           <a href="https://github.com/mikemai2awesome/mui-icon-wc/tree/main/dist"
-            >Download on GitHub</a
+            >在 GitHub 网站下载</a
           >
           <mui-icon name="arrow-forward"></mui-icon>
         </p>
@@ -71,10 +68,10 @@
       <main>
         <section>
           <nav>
-            <em>Language: <a href="#how-to-use" aria-current="page">English</a> /</em>
-            <a href="cn" lang="zh-hans">中文</a>
+            语言：<a href="../" lang="en-us">English</a> /
+            <a href="#how-to-use" lang="zh-hans" aria-current="page">中文</a>
           </nav>
-          <h2 id="how-to-use">How To Use</h2>
+          <h2 id="how-to-use">使用方法</h2>
           <div class="icons-grid u-flex-align-center">
             <div class="icon-demo">
               <div>
@@ -83,19 +80,16 @@
               </div>
             </div>
           </div>
-          <pre contenteditable><code>&lt;!-- Include the JavaScript file --&gt;
+          <pre contenteditable><code>&lt;!-- 引入 JavaScript 文件 --&gt;
 &lt;script src="path/to/mui-icon.js"&gt;&lt;/script&gt;
 
-&lt;!-- Then, include the component in your HTML --&gt;
+&lt;!-- 然后，在 HTML 中使用该组件 --&gt;
 &lt;mui-icon name="shopping-cart"&gt;&lt;/mui-icon&gt;</code></pre>
         </section>
 
         <section>
-          <h2 id="component-props">Component Props</h2>
-          <p>
-            The <code>&lt;mui-icon&gt;</code> web component accepts the following props (i.e.
-            attributes):
-          </p>
+          <h2 id="component-props">组件属性</h2>
+          <p><code>&lt;mui-icon&gt;</code> 网页组件接受以下属性：</p>
 
           <div
             class="u-horiontal-scroll"
@@ -106,20 +100,20 @@
             <table>
               <thead>
                 <tr>
-                  <th>Prop</th>
-                  <th>Type</th>
-                  <th>Default</th>
-                  <th>Description</th>
+                  <th>属性</th>
+                  <th>类型</th>
+                  <th>默认值</th>
+                  <th>描述</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><code>name</code></td>
                   <td>string</td>
-                  <td><em>(required)</em></td>
+                  <td>必填</td>
                   <td>
-                    Specifies which MUI Icon to display in lowercase and dash-separated format (e.g.
-                    <code>shopping-cart</code>, <code>arrow-back</code>).
+                    以小写字母且用连字符分隔的格式指定要显示的 MUI Icons 图标（例如
+                    <code>shopping-cart</code>、<code>arrow-back</code>）。
                   </td>
                 </tr>
                 <tr>
@@ -127,10 +121,7 @@
                   <td>string</td>
                   <td>null</td>
                   <td>
-                    Controls the icon size. Values: <code>small</code> (16px/1rem),
-                    <code>medium</code> (24px/1.5rem), <code>large</code> (32px/2rem),
-                    <code>xlarge</code> (48px/3rem). When omitted, inherits the font size of its
-                    parent.
+                    控制图标大小。取值：<code>small</code>（16 像素 / 1rem）、<code></code>medium</code>（24 像素 / 1.5rem）、<code>large</code>（32 像素 / 2rem）、<code>xlarge</code>（48 像素 / 3rem）。若省略该设置，则继承其父元素的字体大小。
                   </td>
                 </tr>
                 <tr>
@@ -138,9 +129,7 @@
                   <td>string</td>
                   <td>null</td>
                   <td>
-                    When provided, adds accessibility information for screen readers with
-                    <code>aria-label</code>. When omitted, the icon is treated as decorative with
-                    <code>aria-hidden="true"</code>.
+                    若提供该属性，则会通过 <code>aria-label</code> 为屏幕阅读器添加无障碍信息。若省略该属性，图标将被视为装饰性元素，设置 <code>aria-hidden="true"</code>。
                   </td>
                 </tr>
               </tbody>
@@ -149,36 +138,36 @@
         </section>
 
         <section>
-          <h2>CSS Custom Properties</h2>
-          <p>The component also accepts the following CSS custom properties for custom styling:</p>
+          <h2>CSS 自定义属性</h2>
+          <p>该组件还接受以下用于自定义样式的 CSS 自定义属性：</p>
           <div class="u-horiontal-scroll">
             <table>
               <thead>
                 <tr>
-                  <th width="30%">Property</th>
-                  <th width="70%">Description</th>
+                  <th width="30%">属性</th>
+                  <th width="70%">描述</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><code>--icon-size-small</code></td>
-                  <td>Size for <code>small</code> icons.</td>
+                  <td>小码图标的尺寸。</td>
                 </tr>
                 <tr>
                   <td><code>--icon-size-medium</code></td>
-                  <td>Size for <code>medium</code> icons.</td>
+                  <td>中码图标的尺寸。</td>
                 </tr>
                 <tr>
                   <td><code>--icon-size-large</code></td>
-                  <td>Size for <code>large</code> icons.</td>
+                  <td>大码图标的尺寸。</td>
                 </tr>
                 <tr>
                   <td><code>--icon-size-xlarge</code></td>
-                  <td>Size for <code>xlarge</code> icons.</td>
+                  <td>加大码图标的尺寸。</td>
                 </tr>
                 <tr>
                   <td><code>--icon-color</code></td>
-                  <td>Color for the icon.</td>
+                  <td>图标的颜色。</td>
                 </tr>
               </tbody>
             </table>
@@ -192,27 +181,27 @@
 }</code></pre>
         </section>
         <section>
-          <h2>Sizes</h2>
+          <h2>尺寸</h2>
           <ul class="icons-grid u-flex-align-center" role="list">
             <li class="icon-demo">
               <mui-icon name="save"></mui-icon>
-              <span><q>null</q><br />(inherits font size)</span>
+              <span><q>null</q><br />（继承字体大小）</span>
             </li>
             <li class="icon-demo">
               <mui-icon name="save" size="small"></mui-icon>
-              <span>small<br />(16px)</span>
+              <span>small<br />（16px）</span>
             </li>
             <li class="icon-demo">
               <mui-icon name="save" size="medium"></mui-icon>
-              <span>medium<br />(24px)</span>
+              <span>medium<br />（24px）</span>
             </li>
             <li class="icon-demo">
               <mui-icon name="save" size="large"></mui-icon>
-              <span>large<br />(32px)</span>
+              <span>large<br />（32px）</span>
             </li>
             <li class="icon-demo">
               <mui-icon name="save" size="xlarge"></mui-icon>
-              <span>xlarge<br />(48px)</span>
+              <span>xlarge<br />（48px）</span>
             </li>
           </ul>
           <pre
@@ -221,45 +210,41 @@
         </section>
 
         <section>
-          <h2>Accessibility</h2>
-          <p>
-            Icons can be made meaningful for assistive technologies with the
-            <code>label</code> prop:
-          </p>
+          <h2>无障碍性</h2>
+          <p>借助 <code>label</code> 属性，图标可以对辅助技术具有明确意义：</p>
           <ul class="icons-grid" role="list">
             <li class="icon-demo">
               <button>
-                <mui-icon name="save" label="Save"></mui-icon>
+                <mui-icon name="save" label="保存"></mui-icon>
               </button>
             </li>
             <li class="icon-demo">
               <button>
                 <mui-icon name="save"></mui-icon>
-                <span>Save</span>
+                <span>保存</span>
               </button>
             </li>
           </ul>
-          <pre contenteditable><code>&lt;!-- Meaningful Icon --&gt;
+          <pre contenteditable><code>&lt;!-- 有意义的图标 --&gt;
 &lt;button&gt;
-  &lt;mui-icon label="Save" name="save"&gt;&lt;/mui-icon&gt;
+  &lt;mui-icon label="保存" name="save"&gt;&lt;/mui-icon&gt;
 &lt;/button&gt;
 
-&lt;!-- Decorative Icon --&gt;
+&lt;!-- 装饰性图标 --&gt;
 &lt;button&gt;
   &lt;mui-icon name="save"&gt;&lt;/mui-icon&gt;
-  &lt;span&gt;Save&lt;/span&gt;
+  &lt;span&gt;保存&lt;/span&gt;
 &lt;/button&gt;</code></pre>
           <ol>
             <li>
-              The icon is given explicit <code>label</code> prop for assistive technologies because
-              there is no visible text label.
+              由于没有可见的文本标签，图标需要明确的 <code>label</code> 属性以供辅助技术使用。
             </li>
-            <li>The icon omits the <code>label</code> prop because there is visible text label.</li>
+            <li>由于有可见的文本标签，图标省略了 <code>label</code> 属性。</li>
           </ol>
         </section>
 
         <section>
-          <h2>50 Most Popular Icons</h2>
+          <h2>50个最常用的图标</h2>
           <ul class="icons-grid" role="list">
             <li class="icon-demo">
               <mui-icon name="home" size="medium"></mui-icon>
@@ -462,12 +447,12 @@
               <span>send</span>
             </li>
           </ul>
-          <h3>Preview More Icons</h3>
+          <h3>预览更多图标</h3>
           <p id="search-hint">
-            Enter any MUI Icon name to load it dynamically. Use lowercase and dash-separated format
-            (e.g. <code>shopping-cart</code> instead of <code>ShoppingCart</code>). For a full list
-            of icons, see the
-            <a href="https://mui.com/material-ui/material-icons">MUI Icons documentation</a>.
+            输入任意 MUI Icons 图标名称以动态加载该图标。请使用小写字母并用连字符分隔的格式（例如
+            <code>shopping-cart</code>，而非
+            <code>ShoppingCart</code>）。如需查看完整的图标列表，请参阅
+            <a href="https://mui.com/material-ui/material-icons">MUI Icons 图标文档</a>。
           </p>
 
           <search>
@@ -475,18 +460,15 @@
               <mui-icon id="dynamic-icon" name="search" size="xlarge"></mui-icon>
               <div class="u-visually-hidden" id="icon-name">search</div>
               <p>
-                <em>
-                  This icon was loaded dynamically from the
-                  <a href="https://www.npmjs.com/package/@mui/icons-material">MUI Icons package</a>.
-                </em>
+                此图标是从
+                <a href="https://www.npmjs.com/package/@mui/icons-material">MUI Icons 图标包</a>
+                动态加载的。
               </p>
             </div>
-            <p>
-              <em aria-live="polite" id="status" class="u-visually-hidden"></em>
-            </p>
+            <p aria-live="polite" id="status" class="u-visually-hidden"></p>
             <div class="search-container">
               <input type="search" id="icon-search" aria-labelledby="search-hint" />
-              <button id="load-icon">Show me the icon</button>
+              <button id="load-icon">显示图标</button>
             </div>
           </search>
         </section>
@@ -494,7 +476,7 @@
     </div>
 
     <script>
-      // Dynamic icon loading functionality
+      // 动态图标加载功能
       document.addEventListener('DOMContentLoaded', () => {
         const iconSearch = document.getElementById('icon-search');
         const loadButton = document.getElementById('load-icon');
@@ -507,19 +489,19 @@
           const name = iconSearch.value.trim();
 
           if (!name) {
-            status.textContent = 'Please enter an icon name';
+            status.textContent = '请输入图标名称';
             status.classList.remove('u-visually-hidden');
             status.style.display = 'block';
             resultContainer.style.display = 'none';
             return;
           }
 
-          status.textContent = `Loading...`;
+          status.textContent = `加载中...`;
           status.classList.remove('u-visually-hidden');
           status.style.display = 'block';
           resultContainer.style.display = 'none';
 
-          // Create a test icon element to check if the icon is valid
+          // 创建测试图标元素以检查图标是否有效
           const testIcon = document.createElement('mui-icon');
           testIcon.style.position = 'absolute';
           testIcon.style.opacity = '0';
@@ -527,50 +509,50 @@
           testIcon.setAttribute('name', name);
           document.body.appendChild(testIcon);
 
-          // Check after a delay
+          // 延迟检查
           setTimeout(() => {
-            // Directly inspect the shadow DOM
+            // 直接检查影子 DOM
             const shadowRoot = testIcon.shadowRoot;
             const hasIcon =
               shadowRoot &&
               shadowRoot.querySelector('svg') &&
               shadowRoot.querySelector('svg').innerHTML.length > 20;
 
-            // Remove the test element
+            // 移除测试元素
             document.body.removeChild(testIcon);
 
             if (hasIcon) {
-              // Icon exists, update the visible one
+              // 图标存在，更新可见的图标
               dynamicIcon.setAttribute('name', name);
               dynamicIcon.setAttribute('size', 'xlarge');
               iconName.textContent = name;
-              status.textContent = `Successfully loaded icon: ${name}`;
+              status.textContent = `成功加载图标：${name}`;
               status.classList.add('u-visually-hidden');
               resultContainer.style.display = 'grid';
             } else {
-              status.textContent = `Could not find icon: ${name}. Please try another name.`;
+              status.textContent = `找不到图标：${name}。请尝试其他名称。`;
               status.classList.remove('u-visually-hidden');
               status.style.display = 'block';
               resultContainer.style.display = 'none';
             }
 
-            // Scroll to results or status message
+            // 滚动到结果或状态消息
             const scrollTarget = hasIcon ? resultContainer : status;
 
             scrollTarget.scrollIntoView({
               block: 'center',
             });
-          }, 1500); // Give enough time for the component to attempt loading
+          }, 1500); // 给组件尝试加载留出足够的时间
         });
 
-        // Allow pressing Enter to load the icon
+        // 允许按回车键加载图标
         iconSearch.addEventListener('keypress', e => {
           if (e.key === 'Enter') {
             loadButton.click();
           }
         });
 
-        // Also handle the initial empty state
+        // 处理初始空状态
         iconSearch.addEventListener('focus', () => {
           if (!iconSearch.value.trim()) {
             status.classList.remove('u-visually-hidden');

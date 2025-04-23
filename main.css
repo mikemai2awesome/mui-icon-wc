@@ -1,0 +1,332 @@
+@layer config, resets, components, utilities;
+
+@layer components {
+  body {
+    margin-block: 5vmax;
+    margin-inline: 5vmin;
+
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row-reverse;
+      align-items: flex-start;
+      gap: 5vmin;
+      row-gap: 5vmax;
+      max-inline-size: 140ch;
+      margin-inline: auto;
+    }
+  }
+
+  header,
+  section,
+  search {
+    display: grid;
+    gap: 0.75cap;
+  }
+
+  header {
+    display: grid;
+    gap: 0.5cap;
+    flex: 1 1 25ch;
+    position: sticky;
+    top: 2.5vmin;
+    padding: 2.5vmin;
+    font-size: 0.8rem;
+    background-color: color-mix(in oklch, canvas 75%, transparent);
+    border: 2px solid color-mix(in oklch, canvastext 8%, transparent);
+    border-radius: 3ex;
+    border-end-start-radius: 0;
+    backdrop-filter: blur(1ex);
+
+    * {
+      font: inherit;
+    }
+
+    h1 {
+      font-variant: small-caps;
+      text-transform: uppercase;
+      letter-spacing: 0.1ex;
+    }
+  }
+
+  main {
+    display: grid;
+    gap: 4cap;
+    flex: 6.18 1 35ch;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.25ex;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: inherit;
+    line-height: 1.15;
+
+    &:not(:first-child) {
+      margin-block-start: 1cap;
+    }
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  p {
+    max-inline-size: 65ch;
+  }
+
+  pre code {
+    display: block;
+    padding: 2ex;
+    border: 0.5ex solid color-mix(in oklch, canvastext 8%, transparent);
+    border-radius: 1ex;
+  }
+
+  code {
+    font-size: 0.85em;
+  }
+
+  input,
+  button {
+    padding-block: 1ex;
+    padding-inline: 2ch;
+    line-height: 1.2;
+    border: 0.25ex solid;
+    border-radius: 1ex;
+  }
+
+  input {
+    border-color: color-mix(in oklch, canvastext 40%, transparent);
+  }
+
+  button {
+    display: inline-grid;
+    place-items: center;
+    text-align: center;
+    color: canvastext;
+    border-color: canvastext;
+    background-color: canvas;
+    transition: background-color 0.2s ease-in-out;
+
+    &:has(mui-icon:not(:only-child)) {
+      grid-template-columns: auto 1fr auto;
+      gap: 0.5ch;
+      align-items: start;
+      padding-block: 1.1ex 0.9ex;
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        background-color: color-mix(in oklch, canvastext 4%, canvas);
+      }
+    }
+  }
+
+  table {
+    inline-size: 100%;
+    border-spacing: 0.5ch;
+    background-color: color-mix(in oklch, canvastext 4%, transparent);
+    border: 1px solid transparent;
+    border-radius: 1ex;
+
+    th,
+    td {
+      text-align: start;
+      padding-block: 0.5ex;
+      padding-inline: 1ch;
+    }
+
+    th {
+      background-color: canvas;
+      border: 1px solid transparent;
+      border-radius: 1ex;
+
+      &:last-child {
+        min-inline-size: 25ch;
+      }
+
+      &:not(:last-child) {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  nav {
+    a {
+      text-decoration: none;
+
+      &[aria-current='page'] {
+        color: canvastext;
+        text-decoration: underline;
+      }
+
+      @media (any-hover: hover) {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .dynamic-icon-demo {
+    display: grid;
+    place-items: center;
+    padding: 5vmin;
+    background-color: color-mix(in oklch, canvastext 4%, transparent);
+    border: 1px solid transparent;
+    border-radius: 1ex;
+
+    p {
+      margin-block-start: 1cap;
+      font-size: 0.8em;
+    }
+  }
+
+  .icons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
+    list-style: none;
+    padding-block: 2.5vmin;
+    background-color: color-mix(in oklch, canvastext 4%, transparent);
+    border: 1px solid transparent;
+    border-radius: 1ex;
+  }
+
+  .icon-demo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding: 1ex;
+
+    & > span {
+      margin-block-start: 0.5ex;
+      font-size: 0.8em;
+      line-height: 1.2;
+      color: canvastext;
+    }
+  }
+
+  .search-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5ch;
+    max-inline-size: 65ch;
+
+    input {
+      flex: 4 1 20ch;
+      inline-size: 100%;
+    }
+
+    button {
+      flex: 1 1 max-content;
+    }
+  }
+
+  [lang='zh-hans'],
+  [lang='zh-hans'] *:not(code) {
+    font-family: system-ui, sans-serif;
+    font-feature-settings: 'ss06';
+  }
+
+  :root[lang='zh-hans'] {
+    font-size: clamp(90%, 90% * 0.9 + 0.5dvi, 150%);
+    line-height: 1.6;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: 900;
+    }
+
+    p {
+      max-inline-size: 65em;
+    }
+
+    button:has(mui-icon:not(:only-child)) {
+      align-items: center;
+      padding-block: 1ex;
+    }
+  }
+}
+
+@layer config {
+  :root {
+    color-scheme: dark light;
+    font-family: 'IM Fell English', 'Georgia', serif;
+    font-size: clamp(100%, 100% * 0.9 + 0.5dvi, 200%);
+    line-height: 1.4;
+  }
+}
+
+@layer resets {
+  *,
+  *::before,
+  *::after {
+    font-feature-settings: 'kern';
+    font-kerning: normal;
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    text-wrap: balance;
+
+    &:focus-visible {
+      outline: 2px dashed linktext;
+      outline-offset: 2px;
+    }
+  }
+
+  input:is([type='checkbox'], [type='radio']),
+  select,
+  label,
+  button {
+    cursor: pointer;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer utilities {
+  .u-visually-hidden:not(:focus):not(:active) {
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .u-horiontal-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .u-flex-align-center {
+    align-items: center;
+  }
+}

@@ -8,7 +8,9 @@
     "start": "npx serve .",
     "build": "mkdir -p dist && cp mui-icon.js dist/",
     "minify": "npx terser dist/mui-icon.js -o dist/mui-icon.min.js --compress --mangle",
-    "prepare": "npm run build && npm run minify"
+    "prepare": "npm run build && npm run minify",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [
     "web-components",
@@ -21,6 +23,9 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
     "serve": "^14.2.0",
     "terser": "^5.16.8"
   },
@@ -29,4 +34,4 @@
     "not dead",
     "not op_mini all"
   ]
-} 
+}
