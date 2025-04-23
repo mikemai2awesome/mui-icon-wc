@@ -1,10 +1,10 @@
-# MUI Icon Web Component
+# MUI-Icon Web Component
 
 A lightweight, accessible web component that displays Material UI icons as SVGs. This component dynamically loads icons from the official [@mui/icons-material](https://www.npmjs.com/package/@mui/icons-material) package, allowing you to use any Material UI icon without the full library dependency.
 
 ## Features
 
-- Dynamically loads any icon from the MUI icons library
+- Dynamically loads any icon from the MUI Icons library
 - Custom element that works in any framework or vanilla HTML
 - Responsive sizing
 
@@ -19,7 +19,7 @@ A lightweight, accessible web component that displays Material UI icons as SVGs.
 You can use any icon name from the Material UI icons library. The component will automatically convert kebab-case (like `arrow-back`) to PascalCase with an "Icon" suffix (like `ArrowBackIcon`) when fetching from the MUI library.
 
 ```html
-<!-- Examples of using different MUI icons -->
+<!-- Examples of using different MUI Icons -->
 <mui-icon name="home"></mui-icon>
 <mui-icon name="arrow-back"></mui-icon>
 <mui-icon name="shopping-cart"></mui-icon>
@@ -90,7 +90,7 @@ mui-icon {
 
 ## How It Works
 
-The component dynamically fetches icon SVG paths from the MUI icons package through unpkg.com CDN. It converts the icon name from kebab-case to PascalCase and adds the "Icon" suffix to match MUI's naming convention.
+The component dynamically fetches icon SVG paths from the MUI Icons package through unpkg.com CDN. It converts the icon name from kebab-case to PascalCase and adds the "Icon" suffix to match MUI's naming convention.
 
 For example:
 
@@ -109,7 +109,7 @@ For more reliability, the component tries multiple potential paths for each icon
 - Lib path
 - Paths with various style suffixes (Outlined, Rounded, Sharp, TwoTone)
 
-This ensures maximum compatibility with the MUI icons library and helps resolve edge cases.
+This ensures maximum compatibility with the MUI Icons library and helps resolve edge cases.
 
 ## Accessibility
 
