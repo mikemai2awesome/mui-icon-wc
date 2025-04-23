@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mike Mai 开发的 MUI-Icon 图标网页组件</title>
     <link rel="stylesheet" href="../main.css" />
-    <meta
-      name="description"
-      content="一款轻量级且具备无障碍访问特性的网页组件，用于动态加载 Material UI 图标。使用原生 JavaScript 即可轻松实现，支持响应式尺寸调整，并具备无障碍访问功能。"
-    />
+    <meta name="description" content="一款轻量级且具备无障碍访问特性的网页组件，用于动态加载 Material UI 图标。使用原生 JavaScript 即可轻松实现，支持响应式尺寸调整，并具备无障碍访问功能。" />
     <link rel="canonical" href="https://mikemai.net/mui-icon/cn/" />
 
     <!-- Open Graph -->
@@ -18,10 +15,7 @@
 
     <meta property="og:url" content="https://mikemai.net/mui-icon/cn/" />
     <meta property="og:title" content="Mike Mai 开发的 MUI-Icon 图标网页组件" />
-    <meta
-      property="og:description"
-      content="一款轻量级且具备无障碍访问特性的网页组件，用于动态加载 Material UI 图标。使用原生 JavaScript 即可轻松实现，支持响应式尺寸调整，并具备无障碍访问功能。"
-    />
+    <meta property="og:description" content="一款轻量级且具备无障碍访问特性的网页组件，用于动态加载 Material UI 图标。使用原生 JavaScript 即可轻松实现，支持响应式尺寸调整，并具备无障碍访问功能。" />
     <meta property="og:locale" content="zh_CN" />
 
     <meta property="og:image" content="https://mikemai.net/mui-icon/img/og-image.jpg" />
@@ -49,10 +43,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div>
@@ -60,9 +51,7 @@
         <h1>MUI-Icon 网页组件</h1>
         <p>一个轻量级且易用的网页组件，可从 MUI Icons 的官方包中动态加载图标。</p>
         <p>
-          <a href="https://github.com/mikemai2awesome/mui-icon-wc/tree/main/dist"
-            >在 GitHub 网站下载</a
-          >
+          <a href="https://github.com/mikemai2awesome/mui-icon-wc/tree/main/dist">在 GitHub 网站下载</a>
           <mui-icon name="arrow-forward"></mui-icon>
         </p>
       </header>
@@ -93,12 +82,7 @@
           <h2 id="component-props">组件属性</h2>
           <p><code>&lt;mui-icon&gt;</code> 网页组件接受以下属性：</p>
 
-          <div
-            class="u-horiontal-scroll"
-            role="region"
-            aria-labelledby="component-props"
-            tabindex="0"
-          >
+          <div class="u-horiontal-scroll" role="region" aria-labelledby="component-props" tabindex="0">
             <table>
               <thead>
                 <tr>
@@ -122,12 +106,7 @@
                   <td><code>size</code></td>
                   <td>string</td>
                   <td>null</td>
-                  <td>
-                    控制图标大小。取值：<code>small</code>（16 像素 /
-                    1rem）、<code>medium</code>（24 像素 / 1.5rem）、<code>large</code>（32 像素 /
-                    2rem）、<code>xlarge</code>（48 像素 /
-                    3rem）。若省略该设置，则继承其父元素的字体大小。
-                  </td>
+                  <td>控制图标大小。取值：<code>small</code>（16 像素 / 1rem）、<code>medium</code>（24 像素 / 1.5rem）、<code>large</code>（32 像素 / 2rem）、<code>xlarge</code>（48 像素 / 3rem）。若省略该设置，则继承其父元素的字体大小。</td>
                 </tr>
                 <tr>
                   <td><code>label</code></td>
@@ -212,9 +191,7 @@
               <span>xlarge<br />（48px）</span>
             </li>
           </ul>
-          <pre
-            contenteditable
-          ><code>&lt;mui-icon size="xlarge" name="save"&gt;&lt;/mui-icon&gt;</code></pre>
+          <pre contenteditable><code>&lt;mui-icon size="xlarge" name="save"&gt;&lt;/mui-icon&gt;</code></pre>
         </section>
 
         <section>
@@ -244,9 +221,7 @@
   &lt;span&gt;保存&lt;/span&gt;
 &lt;/button&gt;</code></pre>
           <ol>
-            <li>
-              由于没有可见的文本标签，图标需要明确的 <code>label</code> 属性以供辅助技术使用。
-            </li>
+            <li>由于没有可见的文本标签，图标需要明确的 <code>label</code> 属性以供辅助技术使用。</li>
             <li>由于有可见的文本标签，图标省略了 <code>label</code> 属性。</li>
           </ol>
         </section>
@@ -458,20 +433,16 @@
           <h3>预览更多图标</h3>
           <p id="search-hint">
             输入任意 MUI Icons 图标名称以动态加载该图标。请使用小写字母并用连字符分隔的格式（例如
-            <code>shopping-cart</code>，而非
-            <code>ShoppingCart</code>）。如需查看完整的图标列表，请参阅
-            <a href="https://mui.com/material-ui/material-icons">MUI Icons 图标文档</a>。
+            <code>shopping-cart</code>，而非 <code>ShoppingCart</code>）。如需查看完整的图标列表，请参阅
+            <a href="https://mui.com/material-ui/material-icons">MUI Icons</a>
+            图标文档。
           </p>
 
           <search>
             <div id="dynamic-result" class="dynamic-icon-demo" style="display: none">
               <mui-icon id="dynamic-icon" name="search" size="xlarge"></mui-icon>
               <div class="u-visually-hidden" id="icon-name">search</div>
-              <p>
-                此图标是从
-                <a href="https://www.npmjs.com/package/@mui/icons-material">MUI Icons 图标包</a>
-                动态加载的。
-              </p>
+              <p>此图标是从 <a href="https://www.npmjs.com/package/@mui/icons-material">MUI Icons</a> 图标包动态加载的。</p>
             </div>
             <p aria-live="polite" id="status" class="u-visually-hidden"></p>
             <div class="search-container">
@@ -521,10 +492,7 @@
           setTimeout(() => {
             // 直接检查影子 DOM
             const shadowRoot = testIcon.shadowRoot;
-            const hasIcon =
-              shadowRoot &&
-              shadowRoot.querySelector('svg') &&
-              shadowRoot.querySelector('svg').innerHTML.length > 20;
+            const hasIcon = shadowRoot && shadowRoot.querySelector('svg') && shadowRoot.querySelector('svg').innerHTML.length > 20;
 
             // 移除测试元素
             document.body.removeChild(testIcon);

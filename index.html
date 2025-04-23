@@ -3,12 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MUI Icon Web Component by Mike Mai</title>
+    <title>MUI-Icon Web Component by Mike Mai</title>
     <link rel="stylesheet" href="main.css" />
-    <meta
-      name="description"
-      content="A lightweight, accessible web component for dynamically loading Material UI icons. Easy to implement with vanilla JavaScript, responsive sizing, and accessibility features."
-    />
+    <meta name="description" content="A lightweight, accessible web component for dynamically loading Material UI icons. Easy to implement with vanilla JavaScript, responsive sizing, and accessibility features." />
     <link rel="canonical" href="https://mikemai.net/mui-icon/" />
 
     <!-- Open Graph -->
@@ -17,15 +14,12 @@
     <meta name="twitter:creator" content="@mikemai2awesome" />
 
     <meta property="og:url" content="https://mikemai.net/mui-icon/" />
-    <meta property="og:title" content="MUI Icon Web Component by Mike Mai" />
-    <meta
-      property="og:description"
-      content="A lightweight, accessible web component for dynamically loading Material UI icons. Easy to implement with vanilla JavaScript, responsive sizing, and accessibility features."
-    />
+    <meta property="og:title" content="MUI-Icon Web Component by Mike Mai" />
+    <meta property="og:description" content="A lightweight, accessible web component for dynamically loading Material UI icons. Easy to implement with vanilla JavaScript, responsive sizing, and accessibility features." />
     <meta property="og:locale" content="en_US" />
 
     <meta property="og:image" content="https://mikemai.net/mui-icon/img/og-image.jpg" />
-    <meta property="og:image:alt" content="MUI Icon" />
+    <meta property="og:image:alt" content="MUI-Icon" />
     <meta property="og:image:width" content="1280" />
     <meta property="og:image:height" content="672" />
 
@@ -49,23 +43,15 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div>
       <header>
         <h1>MUI-Icon Web Component</h1>
+        <p>Want to use a Material UI icon without committing to a long-term relationship with the entire library? Now you can with an easy-to-use web component! Your users&rsquo; bandwidth will thank you, and your lighthouse score won&rsquo;t need therapy anymore.</p>
         <p>
-          A lightweight, accessible web component that dynamically loads MUI Icons from the official
-          package.
-        </p>
-        <p>
-          <a href="https://github.com/mikemai2awesome/mui-icon-wc/tree/main/dist"
-            >Download on GitHub</a
-          >
+          <a href="https://github.com/mikemai2awesome/mui-icon-wc/tree/main/dist">Download on GitHub</a>
           <mui-icon name="arrow-forward"></mui-icon>
         </p>
       </header>
@@ -94,17 +80,9 @@
 
         <section>
           <h2 id="component-props">Component Props</h2>
-          <p>
-            The <code>&lt;mui-icon&gt;</code> web component accepts the following props (i.e.
-            attributes):
-          </p>
+          <p>The <code>&lt;mui-icon&gt;</code> web component accepts the following props (i.e. attributes):</p>
 
-          <div
-            class="u-horiontal-scroll"
-            role="region"
-            aria-labelledby="component-props"
-            tabindex="0"
-          >
+          <div class="u-horiontal-scroll" role="region" aria-labelledby="component-props" tabindex="0">
             <table>
               <thead>
                 <tr>
@@ -128,12 +106,7 @@
                   <td><code>size</code></td>
                   <td>string</td>
                   <td>null</td>
-                  <td>
-                    Controls the icon size. Values: <code>small</code> (16px/1rem),
-                    <code>medium</code> (24px/1.5rem), <code>large</code> (32px/2rem),
-                    <code>xlarge</code> (48px/3rem). When omitted, inherits the font size of its
-                    parent.
-                  </td>
+                  <td>Controls the icon size. Values: <code>small</code> (16px/1rem), <code>medium</code> (24px/1.5rem), <code>large</code> (32px/2rem), <code>xlarge</code> (48px/3rem). When omitted, inherits the font size of its parent.</td>
                 </tr>
                 <tr>
                   <td><code>label</code></td>
@@ -141,8 +114,7 @@
                   <td>null</td>
                   <td>
                     When provided, adds accessibility information for screen readers with
-                    <code>aria-label</code>. When omitted, the icon is treated as decorative with
-                    <code>aria-hidden="true"</code>.
+                    <code>aria-label</code>. When omitted, the icon is treated as decorative with <code>aria-hidden="true"</code>.
                   </td>
                 </tr>
               </tbody>
@@ -217,9 +189,7 @@
               <span>xlarge<br />(48px)</span>
             </li>
           </ul>
-          <pre
-            contenteditable
-          ><code>&lt;mui-icon size="xlarge" name="save"&gt;&lt;/mui-icon&gt;</code></pre>
+          <pre contenteditable><code>&lt;mui-icon size="xlarge" name="save"&gt;&lt;/mui-icon&gt;</code></pre>
         </section>
 
         <section>
@@ -252,10 +222,7 @@
   &lt;span&gt;Save&lt;/span&gt;
 &lt;/button&gt;</code></pre>
           <ol>
-            <li>
-              The icon is given explicit <code>label</code> prop for assistive technologies because
-              there is no visible text label.
-            </li>
+            <li>The icon is given explicit <code>label</code> prop for assistive technologies because there is no visible text label.</li>
             <li>The icon omits the <code>label</code> prop because there is visible text label.</li>
           </ol>
         </section>
@@ -466,10 +433,7 @@
           </ul>
           <h3>Preview More Icons</h3>
           <p id="search-hint">
-            Enter any MUI Icon name to load it dynamically. Use lowercase and dash-separated format
-            (e.g. <code>shopping-cart</code> instead of <code>ShoppingCart</code>). For a full list
-            of icons, see the
-            <a href="https://mui.com/material-ui/material-icons">MUI Icons documentation</a>.
+            Enter any MUI Icon name to load it dynamically. Use lowercase and dash-separated format (e.g. <code>shopping-cart</code> instead of <code>ShoppingCart</code>). For a full list of icons, see the <a href="https://mui.com/material-ui/material-icons">MUI Icons documentation</a>.
           </p>
 
           <search>
@@ -533,10 +497,7 @@
           setTimeout(() => {
             // Directly inspect the shadow DOM
             const shadowRoot = testIcon.shadowRoot;
-            const hasIcon =
-              shadowRoot &&
-              shadowRoot.querySelector('svg') &&
-              shadowRoot.querySelector('svg').innerHTML.length > 20;
+            const hasIcon = shadowRoot && shadowRoot.querySelector('svg') && shadowRoot.querySelector('svg').innerHTML.length > 20;
 
             // Remove the test element
             document.body.removeChild(testIcon);

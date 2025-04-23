@@ -29,7 +29,9 @@
     gap: 0.5cap;
     flex: 1 1 25ch;
     position: sticky;
-    top: 2.5vmin;
+    inset-block-start: 2.5vmin;
+    overflow-y: auto;
+    max-block-size: 50dvb;
     padding: 2.5vmin;
     font-size: 0.8rem;
     background-color: color-mix(in oklch, canvas 75%, transparent);
