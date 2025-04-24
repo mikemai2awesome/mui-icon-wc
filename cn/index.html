@@ -43,7 +43,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div>
@@ -65,9 +65,9 @@
           <h2 id="how-to-use">使用方法</h2>
           <div class="icons-grid u-flex-align-center">
             <div class="icon-demo">
-              <div>
-                <mui-icon name="shopping-cart"></mui-icon>
-                Shopping Cart
+              <div class="display-demo">
+                <mui-icon name="access-time" label="派对时间"></mui-icon>
+                9:55
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@
 &lt;script src="path/to/mui-icon.js"&gt;&lt;/script&gt;
 
 &lt;!-- 然后，在 HTML 中使用该组件 --&gt;
-&lt;mui-icon name="shopping-cart"&gt;&lt;/mui-icon&gt;</code></pre>
+&lt;mui-icon name="access-time"&gt;&lt;/mui-icon&gt;</code></pre>
         </section>
 
         <section>
@@ -160,11 +160,11 @@
             </table>
           </div>
           <pre contenteditable><code>mui-icon {
-  --icon-size-small: 1rem;
-  --icon-size-medium: 1.5rem;
-  --icon-size-large: 2rem;
-  --icon-size-xlarge: 3rem;
-  --icon-color: crimson;
+    --icon-size-small: 1rem;
+    --icon-size-medium: 1.5rem;
+    --icon-size-large: 2rem;
+    --icon-size-xlarge: 3rem;
+    --icon-color: crimson;
 }</code></pre>
         </section>
         <section>
@@ -212,13 +212,13 @@
           </ul>
           <pre contenteditable><code>&lt;!-- 有意义的图标 --&gt;
 &lt;button&gt;
-  &lt;mui-icon label="保存" name="save"&gt;&lt;/mui-icon&gt;
+    &lt;mui-icon label="保存" name="save"&gt;&lt;/mui-icon&gt;
 &lt;/button&gt;
 
 &lt;!-- 装饰性图标 --&gt;
 &lt;button&gt;
-  &lt;mui-icon name="save"&gt;&lt;/mui-icon&gt;
-  &lt;span&gt;保存&lt;/span&gt;
+    &lt;mui-icon name="save"&gt;&lt;/mui-icon&gt;
+    &lt;span&gt;保存&lt;/span&gt;
 &lt;/button&gt;</code></pre>
           <ol>
             <li>由于没有可见的文本标签，图标需要明确的 <code>label</code> 属性以供辅助技术使用。</li>

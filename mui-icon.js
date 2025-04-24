@@ -50,12 +50,8 @@ class MuiIcon extends HTMLElement {
         console.warn(`Icon "${this.iconName}" not found`);
         // Add diagnostic info to help troubleshooting
         const formattedName = this.formatIconName(this.iconName);
-        const mappedName = this.iconNameMap.has(this.iconName)
-          ? this.iconNameMap.get(this.iconName)
-          : 'not mapped';
-        console.info(
-          `Diagnostic info - formattedName: ${formattedName}, mappedName: ${mappedName}`
-        );
+        const mappedName = this.iconNameMap.has(this.iconName) ? this.iconNameMap.get(this.iconName) : 'not mapped';
+        console.info(`Diagnostic info - formattedName: ${formattedName}, mappedName: ${mappedName}`);
 
         this.shadowRoot.innerHTML = '';
         return;
@@ -75,21 +71,10 @@ class MuiIcon extends HTMLElement {
 
         @layer components {
           :host {
-            display: inline-grid;
+            display: inline-block;
             line-height: 1;
             vertical-align: middle;
             color: var(--icon-color);
-          }
-
-          .icon-wrapper {
-            display: inline-grid;
-            place-items: center;
-          }
-
-          svg {
-            inline-size: 1.5cap;
-            block-size: 1.5cap;
-            fill: currentColor;
           }
 
           :host(:not([size])) {
@@ -111,6 +96,18 @@ class MuiIcon extends HTMLElement {
           :host([size="xlarge"]) {
             font-size: var(--icon-size-xlarge);
           }
+
+          .icon-wrapper {
+            display: inline-grid;
+            place-items: center;
+            line-height: 1;
+          }
+
+          svg {
+            inline-size: 1.55cap;
+            block-size: 1.55cap;
+            fill: currentColor;
+          }
         }
       `;
 
@@ -118,9 +115,7 @@ class MuiIcon extends HTMLElement {
       const iconLabel = this.getAttribute('label') || this.iconName || 'icon';
 
       // Set aria-label only if explicitly provided, otherwise keep icon as decorative
-      const ariaAttrs = this.hasAttribute('label')
-        ? `role="img" aria-label="${iconLabel}"`
-        : `role="img" aria-hidden="true"`;
+      const ariaAttrs = this.hasAttribute('label') ? `role="img" aria-label="${iconLabel}"` : `role="img" aria-hidden="true"`;
 
       this.shadowRoot.innerHTML = `
         <style>${styles}</style>
@@ -235,9 +230,7 @@ class MuiIcon extends HTMLElement {
     }
 
     // Approach 3: Parse React.createElement format (standard in MUI)
-    const pathElements = jsContent.match(
-      /React\.createElement\("path",[^)]*\{[^}]*d:\s*"([^"]+)"[^}]*\}[^)]*\)/g
-    );
+    const pathElements = jsContent.match(/React\.createElement\("path",[^)]*\{[^}]*d:\s*"([^"]+)"[^}]*\}[^)]*\)/g);
 
     if (pathElements && pathElements.length > 0) {
       const pathData = pathElements
