@@ -22,8 +22,7 @@
   header,
   section,
   search {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 0.75cap;
   }
 
