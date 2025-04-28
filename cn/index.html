@@ -455,7 +455,7 @@
     </div>
 
     <script>
-      // 动态图标加载功能
+      // Dynamic icon loading functionality
       document.addEventListener('DOMContentLoaded', () => {
         const iconSearch = document.getElementById('icon-search');
         const loadButton = document.getElementById('load-icon');
@@ -468,7 +468,7 @@
           const name = iconSearch.value.trim();
 
           if (!name) {
-            status.textContent = '请输入图标名称';
+            status.textContent = '请输入一个图标名称';
             status.classList.remove('u-visually-hidden');
             status.style.display = 'block';
             resultContainer.style.display = 'none';
@@ -480,7 +480,7 @@
           status.style.display = 'block';
           resultContainer.style.display = 'none';
 
-          // 创建测试图标元素以检查图标是否有效
+          // Create a test icon element to check if the icon is valid
           const testIcon = document.createElement('mui-icon');
           testIcon.style.position = 'absolute';
           testIcon.style.opacity = '0';
@@ -488,21 +488,21 @@
           testIcon.setAttribute('name', name);
           document.body.appendChild(testIcon);
 
-          // 延迟检查
+          // Check after a delay
           setTimeout(() => {
-            // 直接检查影子 DOM
+            // Directly inspect the shadow DOM
             const shadowRoot = testIcon.shadowRoot;
             const hasIcon = shadowRoot && shadowRoot.querySelector('svg') && shadowRoot.querySelector('svg').innerHTML.length > 20;
 
-            // 移除测试元素
+            // Remove the test element
             document.body.removeChild(testIcon);
 
             if (hasIcon) {
-              // 图标存在，更新可见的图标
+              // Icon exists, update the visible one
               dynamicIcon.setAttribute('name', name);
               dynamicIcon.setAttribute('size', 'xlarge');
               iconName.textContent = name;
-              status.textContent = `成功加载图标：${name}`;
+              status.textContent = `Successfully loaded icon: ${name}`;
               status.classList.add('u-visually-hidden');
               resultContainer.style.display = 'grid';
             } else {
@@ -512,23 +512,23 @@
               resultContainer.style.display = 'none';
             }
 
-            // 滚动到结果或状态消息
+            // Scroll to results or status message
             const scrollTarget = hasIcon ? resultContainer : status;
 
             scrollTarget.scrollIntoView({
               block: 'center',
             });
-          }, 1500); // 给组件尝试加载留出足够的时间
+          }, 1500); // Give enough time for the component to attempt loading
         });
 
-        // 允许按回车键加载图标
+        // Allow pressing Enter to load the icon
         iconSearch.addEventListener('keypress', e => {
           if (e.key === 'Enter') {
             loadButton.click();
           }
         });
 
-        // 处理初始空状态
+        // Also handle the initial empty state
         iconSearch.addEventListener('focus', () => {
           if (!iconSearch.value.trim()) {
             status.classList.remove('u-visually-hidden');
