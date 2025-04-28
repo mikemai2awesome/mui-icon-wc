@@ -18,6 +18,9 @@ class MuiIcon extends HTMLElement {
     this.baseUrl = 'https://unpkg.com/@mui/icons-material/';
     this.iconNameMap = new Map(); // For mapping icon name variations
     this.initIconNameMap();
+
+    // Prefetch common icons when the component is constructed
+    this.prefetchCommonIcons();
   }
 
   connectedCallback() {
@@ -174,27 +177,48 @@ class MuiIcon extends HTMLElement {
       ];
 
       // Try each path until one succeeds
-      let response = null;
       let jsContent = null;
 
       for (const path of pathFormats) {
         try {
-          const fetchResponse = await fetch(path);
-          if (fetchResponse.ok) {
-            response = fetchResponse;
+          // Use fetch with appropriate headers
+          const fetchOptions = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'force-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/javascript',
+              'Access-Control-Allow-Origin': '*',
+            },
+          };
+
+          let response = await fetch(path, fetchOptions);
+
+          if (response && response.ok) {
+            jsContent = await response.text();
             break;
           }
         } catch (e) {
-          // Continue to next path
+          console.warn(`Fetch error for ${path}:`, e);
+          // If fetch fails, try XMLHttpRequest as fallback (works better in Safari)
+          try {
+            jsContent = await this.fetchWithXHR(path);
+            if (jsContent) {
+              break;
+            }
+          } catch (xhrError) {
+            console.warn(`XHR fallback error for ${path}:`, xhrError);
+            // Continue to next path
+          }
         }
       }
 
-      // If no successful path was found
-      if (!response || !response.ok) {
+      // If no content was found
+      if (!jsContent) {
         throw new Error(`Icon "${name}" not found in MUI icons package`);
       }
 
-      jsContent = await response.text();
       const svgContent = this.extractSvgFromJs(jsContent);
 
       if (!svgContent) {
@@ -207,6 +231,35 @@ class MuiIcon extends HTMLElement {
       console.error(`Failed to load icon "${name}": ${error.message}`);
       return null;
     }
+  }
+
+  // Fallback method using XMLHttpRequest which has better cross-browser compatibility
+  fetchWithXHR(url) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/javascript');
+      xhr.responseType = 'text';
+      xhr.timeout = 5000; // Set a timeout of 5 seconds
+
+      xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.responseText);
+        } else {
+          reject(new Error(`XHR request failed with status ${xhr.status}`));
+        }
+      };
+
+      xhr.ontimeout = function () {
+        reject(new Error('XHR request timed out'));
+      };
+
+      xhr.onerror = function () {
+        reject(new Error('XHR request failed'));
+      };
+
+      xhr.send();
+    });
   }
 
   extractSvgFromJs(jsContent) {
@@ -510,6 +563,21 @@ class MuiIcon extends HTMLElement {
     };
 
     return icons[name] || null;
+  }
+
+  // Method to prefetch common icons to improve performance, especially in Safari
+  async prefetchCommonIcons() {
+    // List of most commonly used icons
+    const commonIcons = ['menu', 'search', 'home', 'close', 'settings', 'arrow-back', 'arrow-forward', 'check', 'add', 'delete', 'edit', 'favorite', 'shopping-cart', 'person', 'account-circle'];
+
+    // Fetch these icons in the background
+    for (const iconName of commonIcons) {
+      // Don't await, let them load in the background
+      this.getIconSvg(iconName).catch(() => {
+        // Silently catch errors, we don't want to disrupt the flow
+        // These are preloads and failures are acceptable
+      });
+    }
   }
 }
 

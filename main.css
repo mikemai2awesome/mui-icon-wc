@@ -359,7 +359,7 @@
     width: 1px;
   }
 
-  .u-horiontal-scroll {
+  .u-horizontal-scroll {
     overflow-x: auto;
     overflow-y: hidden;
   }
