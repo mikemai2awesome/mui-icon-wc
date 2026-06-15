@@ -2,12 +2,14 @@
   "name": "web-component-icon",
   "version": "1.0.0",
   "description": "A lightweight, accessible web component that displays Material UI icons as SVGs",
+  "type": "module",
   "main": "dist/mui-icon.js",
   "scripts": {
     "test": "echo \"Open test.html in a browser to run tests\" && exit 1",
     "start": "npx serve .",
-    "build": "mkdir -p dist && cp mui-icon.js dist/",
-    "minify": "npx terser dist/mui-icon.js -o dist/mui-icon.min.js --compress --mangle",
+    "generate-icons": "node src/scripts/generate-icons.mjs",
+    "build": "npm run generate-icons && mkdir -p dist/src && cp mui-icon.js dist/ && cp src/icons.common.generated.js dist/src/ && cp -R icons dist/",
+    "minify": "npx terser dist/mui-icon.js -o dist/mui-icon.min.js --compress --mangle --module",
     "prepare": "npm run build && npm run minify",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
@@ -23,9 +25,15 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^9.1.1",
+    "@mui/material": "^9.1.1",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "serve": "^14.2.0",
     "terser": "^5.16.8"
   },

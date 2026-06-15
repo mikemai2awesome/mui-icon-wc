@@ -134,3 +134,10 @@ out
 .yarn/install-state.gz
 .pnp.*
 .DS_Store
+
+# Generated icon data (regenerated from @mui/icons-material at build time)
+src/icons.common.generated.js
+icons/
+
+# Build output
+dist/

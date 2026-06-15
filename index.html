@@ -38,7 +38,7 @@
     <meta name="theme-color" content="#000" />
 
     <!-- Scripts -->
-    <script src="mui-icon.js"></script>
+    <script type="module" src="mui-icon.js"></script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -435,7 +435,8 @@
           </ul>
           <h3>Preview More Icons</h3>
           <p id="search-hint">
-            Enter any MUI Icon name to load it dynamically. Use lowercase and dash-separated format (e.g. <code>shopping-cart</code> instead of <code>ShoppingCart</code>). For a full list of icons, see the <a href="https://mui.com/material-ui/material-icons">MUI Icons documentation</a>.
+            Search the full Material Icons catalog (<span id="icon-count">2,000+</span> icons). Use lowercase, dash-separated names (e.g. <code>shopping-cart</code>). Pick a style variant to preview. For the full list, see the
+            <a href="https://mui.com/material-ui/material-icons">MUI Icons documentation</a>.
           </p>
 
           <search>
@@ -444,8 +445,8 @@
               <div class="u-visually-hidden" id="icon-name">search</div>
               <p>
                 <em>
-                  This icon was loaded dynamically from the
-                  <a href="https://www.npmjs.com/package/@mui/icons-material">MUI Icons package</a>.
+                  This icon was loaded from the locally bundled
+                  <a href="https://www.npmjs.com/package/@mui/icons-material">MUI Icons catalog</a>.
                 </em>
               </p>
             </div>
@@ -453,7 +454,22 @@
               <em aria-live="polite" id="status" class="u-visually-hidden"></em>
             </p>
             <div class="search-container">
-              <input type="search" id="icon-search" aria-labelledby="search-hint" />
+              <input type="search" id="icon-search" list="icon-names" aria-labelledby="search-hint" autocomplete="off" />
+              <datalist id="icon-names"></datalist>
+              <label for="icon-variant" class="u-visually-hidden">Icon style variant</label>
+              <select id="icon-variant">
+                <option value="filled">Filled</option>
+                <option value="outlined">Outlined</option>
+                <option value="rounded">Rounded</option>
+                <option value="sharp">Sharp</option>
+                <option value="two-tone">Two-tone</option>
+              </select>
+              <label for="icon-loading" class="u-visually-hidden">Loading strategy</label>
+              <select id="icon-loading">
+                <option value="full">Loading: full (whole variant shard)</option>
+                <option value="subset">Loading: subset (per-icon files)</option>
+                <option value="common">Loading: common (inline only)</option>
+              </select>
               <button id="load-icon">Show me the icon</button>
             </div>
           </search>
@@ -461,86 +477,82 @@
       </main>
     </div>
 
-    <script>
-      // Dynamic icon loading functionality
-      document.addEventListener('DOMContentLoaded', () => {
-        const iconSearch = document.getElementById('icon-search');
-        const loadButton = document.getElementById('load-icon');
-        const dynamicIcon = document.getElementById('dynamic-icon');
-        const iconName = document.getElementById('icon-name');
-        const status = document.getElementById('status');
-        const resultContainer = document.getElementById('dynamic-result');
+    <script type="module">
+      import { MuiIcon } from './mui-icon.js';
 
-        loadButton.addEventListener('click', () => {
-          const name = iconSearch.value.trim();
+      const iconSearch = document.getElementById('icon-search');
+      const variantSelect = document.getElementById('icon-variant');
+      const loadingSelect = document.getElementById('icon-loading');
+      const loadButton = document.getElementById('load-icon');
+      const dynamicIcon = document.getElementById('dynamic-icon');
+      const iconName = document.getElementById('icon-name');
+      const status = document.getElementById('status');
+      const resultContainer = document.getElementById('dynamic-result');
+      const dataList = document.getElementById('icon-names');
+      const iconCount = document.getElementById('icon-count');
 
-          if (!name) {
-            status.textContent = 'Please enter an icon name';
-            status.classList.remove('u-visually-hidden');
-            status.style.display = 'block';
-            resultContainer.style.display = 'none';
-            return;
+      // Load the lightweight names index once for instant validation + autocomplete.
+      let validNames = new Set();
+      const ready = MuiIcon.getAvailableIcons()
+        .then(names => {
+          validNames = new Set(names);
+          iconCount.textContent = names.length.toLocaleString();
+          // Populate the datalist with a capped subset; the browser filters as the user types.
+          const frag = document.createDocumentFragment();
+          for (const name of names) {
+            const option = document.createElement('option');
+            option.value = name;
+            frag.appendChild(option);
           }
-
-          status.textContent = `Loading...`;
-          status.classList.remove('u-visually-hidden');
-          status.style.display = 'block';
-          resultContainer.style.display = 'none';
-
-          // Create a test icon element to check if the icon is valid
-          const testIcon = document.createElement('mui-icon');
-          testIcon.style.position = 'absolute';
-          testIcon.style.opacity = '0';
-          testIcon.style.pointerEvents = 'none';
-          testIcon.setAttribute('name', name);
-          document.body.appendChild(testIcon);
-
-          // Check after a delay
-          setTimeout(() => {
-            // Directly inspect the shadow DOM
-            const shadowRoot = testIcon.shadowRoot;
-            const hasIcon = shadowRoot && shadowRoot.querySelector('svg') && shadowRoot.querySelector('svg').innerHTML.length > 20;
-
-            // Remove the test element
-            document.body.removeChild(testIcon);
-
-            if (hasIcon) {
-              // Icon exists, update the visible one
-              dynamicIcon.setAttribute('name', name);
-              dynamicIcon.setAttribute('size', 'xlarge');
-              iconName.textContent = name;
-              status.textContent = `Successfully loaded icon: ${name}`;
-              status.classList.add('u-visually-hidden');
-              resultContainer.style.display = 'grid';
-            } else {
-              status.textContent = `Could not find icon: ${name}. Please try again or enter another name.`;
-              status.classList.remove('u-visually-hidden');
-              status.style.display = 'block';
-              resultContainer.style.display = 'none';
-            }
-
-            // Scroll to results or status message
-            const scrollTarget = hasIcon ? resultContainer : status;
-
-            scrollTarget.scrollIntoView({
-              block: 'center',
-            });
-          }, 1500); // Give enough time for the component to attempt loading
+          dataList.appendChild(frag);
+        })
+        .catch(() => {
+          // Validation falls back to letting the component report missing icons.
         });
 
-        // Allow pressing Enter to load the icon
-        iconSearch.addEventListener('keypress', e => {
-          if (e.key === 'Enter') {
-            loadButton.click();
-          }
-        });
+      function showStatus(message) {
+        status.textContent = message;
+        status.classList.remove('u-visually-hidden');
+        status.style.display = 'block';
+        resultContainer.style.display = 'none';
+      }
 
-        // Also handle the initial empty state
-        iconSearch.addEventListener('focus', () => {
-          if (!iconSearch.value.trim()) {
-            status.classList.remove('u-visually-hidden');
-          }
-        });
+      async function loadIcon() {
+        const name = iconSearch.value.trim().toLowerCase();
+        if (!name) {
+          showStatus('Please enter an icon name.');
+          return;
+        }
+
+        await ready;
+
+        if (validNames.size && !validNames.has(name)) {
+          showStatus(`Could not find icon: ${name}. Try another name (lowercase, dash-separated).`);
+          status.scrollIntoView({ block: 'center' });
+          return;
+        }
+
+        const variant = variantSelect.value;
+        const loading = loadingSelect.value;
+        dynamicIcon.setAttribute('name', name);
+        dynamicIcon.setAttribute('variant', variant);
+        dynamicIcon.setAttribute('loading', loading);
+        dynamicIcon.setAttribute('size', 'xlarge');
+        iconName.textContent = `${name} (${variant}, loading: ${loading})`;
+        status.classList.add('u-visually-hidden');
+        resultContainer.style.display = 'grid';
+        resultContainer.scrollIntoView({ block: 'center' });
+      }
+
+      loadButton.addEventListener('click', loadIcon);
+      iconSearch.addEventListener('keydown', event => {
+        if (event.key === 'Enter') loadIcon();
+      });
+      variantSelect.addEventListener('change', () => {
+        if (resultContainer.style.display !== 'none') loadIcon();
+      });
+      loadingSelect.addEventListener('change', () => {
+        if (resultContainer.style.display !== 'none') loadIcon();
       });
     </script>
   </body>
