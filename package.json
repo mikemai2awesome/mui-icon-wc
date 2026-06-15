@@ -5,7 +5,8 @@
   "type": "module",
   "main": "dist/mui-icon.js",
   "scripts": {
-    "test": "echo \"Open test.html in a browser to run tests\" && exit 1",
+    "test": "node --test \"src/scripts/**/*.test.mjs\"",
+    "test:browser": "echo \"Run 'npm start' and open /test.html in a browser\"",
     "start": "npx serve .",
     "generate-icons": "node src/scripts/generate-icons.mjs",
     "build": "npm run generate-icons && mkdir -p dist/src && cp mui-icon.js dist/ && cp src/icons.common.generated.js dist/src/ && cp -R icons dist/",

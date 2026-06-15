@@ -229,6 +229,22 @@ await MuiIcon.getAvailableIcons(); // Promise<string[]> — full names list (loa
 - **2.5.3 Label in Name** - When labels are provided, they describe the icon's meaning
 - **4.1.2 Name, Role, Value** - Proper role and accessible name are provided
 
+## Testing
+
+Automated tests run on Node's built-in test runner (no extra dependencies):
+
+```bash
+npm test
+```
+
+This covers the pure helpers (name conversion, SVG path extraction including two-tone overlays) and the integrity of the generated icon data (shards, per-icon files, inline common set). The data-integrity tests are skipped automatically if the icon data has not been generated yet — run `npm run generate-icons` first to exercise them.
+
+For manual, in-browser checks of the rendered component, start the dev server and open the test page:
+
+```bash
+npm start   # then open the printed URL at /test.html
+```
+
 ## Browser Support
 
 This component works in all modern browsers that support Custom Elements v1 (Web Components):
